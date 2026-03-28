@@ -1,0 +1,100 @@
+/* ===== CTA ===== */
+
+.home-cta {
+  margin-top: 60px;
+  background: linear-gradient(135deg,#04152e,#061a3a);
+  border-radius: 20px;
+  padding: 50px;
+  color: white;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+}
+
+.cta-left h2 {
+  font-size: 42px;
+  margin-bottom: 15px;
+}
+
+.cta-left p {
+  color: #94a3b8;
+  margin-bottom: 20px;
+}
+
+.cta-item {
+  margin-top: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;  /* 🔥 icon + text markaz */
+  gap: 10px;
+  font-weight: 600;
+}
+
+/* RIGHT */
+.cta-card {
+  background: white;
+  color: #0f172a;
+  padding: 24px;
+  border-radius: 14px;
+}
+
+.cta-card input {
+  width: 100%;
+  height: 42px;
+  margin-top: 10px;
+  margin-bottom: 12px;
+  padding: 0 12px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+}
+
+.cta-card button {
+  width: 100%;
+  height: 42px;
+  border: none;
+  background: #2563eb;
+  color: white;
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+/* ===== FOOTER ===== */
+
+.footer {
+  margin-top: 50px;
+  padding: 40px 0;
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 40px;
+  border-top: 1px solid #e2e8f0;
+}
+
+.footer h3 span {
+  color: #2563eb;
+}
+
+.footer-col p {
+  color: #64748b;
+  margin: 8px 0;
+}
+
+.footer-bottom {
+  text-align: center;
+  color: #94a3b8;
+  padding: 18px 0;
+  border-top: 1px solid #e2e8f0;
+}
+.cta-left {
+  display: flex;
+  flex-direction: column;
+  align-items: center;   /* 🔥 markaz */
+  text-align: center;
+}
+
+.cta-item svg {
+  color: #3b82f6;
+}
+.cta-left h2 {
+  line-height: 1.2;
+}

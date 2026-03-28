@@ -1,0 +1,22 @@
+.job-label {
+  background: white;
+  border-radius: 6px;
+  padding: 3px 8px;
+  font-size: 12px;
+  font-weight: 600;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+.salary-badge {
+  background: #2563eb;
+  color: white;
+  font-weight: 600;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 12px;
+  border: none;
+}
+
+.salary-badge::before {
+  display: none;
+}

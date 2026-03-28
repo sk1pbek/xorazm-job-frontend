@@ -1,0 +1,190 @@
+.login-container {
+  display: flex;
+  min-height: 80vh;
+  border-radius: 18px;
+  overflow: hidden;
+  background: white;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+  font-family: 'Inter', sans-serif;
+}
+.container{
+  max-width:1200px;
+  margin:40px auto;
+  padding:0 20px;
+}
+/* LEFT */
+.login-left {
+  flex: 1;
+  background: linear-gradient(135deg, #2b7ddf, #1e40af);
+  color: white;
+  padding: 90px;
+  position: relative;
+}
+
+.login-left h1 {
+  font-size: 44px;
+  font-weight: 800;
+  line-height: 1.2;
+  margin: 30px 0;
+}
+
+.login-left p {
+  max-width: 480px;
+  opacity: 0.9;
+}
+
+.logo {
+  font-weight: 700;
+  font-size: 20px;
+}
+
+/* Glass Box */
+.glass-box {
+  margin-top: 60px;
+  padding: 25px;
+  border-radius: 16px;
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(10px);
+}
+
+.region {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.stats {
+  display: flex;
+  justify-content: space-between;
+}
+
+.stats h3 {
+  margin: 0;
+}
+
+/* RIGHT */
+.login-right {
+  flex: 1;
+  background: #f1f5f9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-box {
+  width: 420px;
+}
+
+.login-box h2 {
+  font-size: 28px;
+  margin-bottom: 10px;
+}
+
+.login-box p {
+  color: #64748b;
+  margin-bottom: 25px;
+}
+
+label {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.password-header {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+}
+
+.forgot {
+  font-size: 13px;
+  color: #2563eb;
+  cursor: pointer;
+}
+
+.input {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid #e2e8f0;
+  background: white;
+  padding: 12px;
+  border-radius: 10px;
+  margin-top: 8px;
+}
+
+.input input {
+  border: none;
+  outline: none;
+  flex: 1;
+}
+
+.remember {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 15px 0;
+  font-size: 14px;
+}
+
+.login-btn {
+  width: 100%;
+  padding: 14px;
+  border-radius: 12px;
+  border: none;
+  background: #2563eb;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.divider {
+  text-align: center;
+  margin: 20px 0;
+  color: #94a3b8;
+  font-size: 13px;
+}
+
+.social {
+  display: flex;
+  gap: 15px;
+}
+
+.social button {
+  flex: 1;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid #e2e8f0;
+  background: white;
+  cursor: pointer;
+}
+
+.signup {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.signup span {
+  color: #2563eb;
+  cursor: pointer;
+}
+
+/* 🔥 TO‘G‘IRLANGAN STAT DIZAYN */
+.stats-box-clean {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  background: rgba(255,255,255,0.15);
+  padding: 25px;
+  border-radius: 16px;
+}
+
+.stats-box-clean h3 {
+  margin: 0;
+  font-size: 26px;
+}
+
+.stats-box-clean span {
+  font-size: 13px;
+  opacity: 0.9;
+}

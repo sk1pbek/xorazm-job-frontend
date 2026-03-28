@@ -1,0 +1,426 @@
+.reg-page {
+  background: #f1f4f8;
+  min-height: 100vh;
+  padding: 40px 20px;
+}
+
+.reg-container {
+  width: 780px;
+  max-width: 95%;
+  margin: auto;
+}
+
+.reg-container h2 {
+  font-size: 30px;
+  font-weight: 700;
+  margin-bottom: 18px;
+}
+
+/* PROGRESS */
+.progress {
+  height: 6px;
+  background: #d9dee7;
+  border-radius: 20px;
+  overflow: hidden;
+  margin-bottom: 18px;
+}
+
+.progress div {
+  height: 100%;
+  background: #2563eb;
+  transition: .3s;
+}
+
+.steps-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: #60708a;
+  margin-bottom: 24px;
+}
+
+/* CARD */
+.reg-card {
+  background: white;
+  border-radius: 14px;
+  padding: 28px;
+  box-shadow: 0 8px 24px rgba(0,0,0,.06);
+
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.reg-card input,
+.reg-card select,
+.reg-card textarea {
+  width: 100%;
+  padding: 13px 14px;
+  border: 1px solid #d5dce8;
+  border-radius: 10px;
+  font-size: 15px;
+}
+
+.reg-card textarea {
+  resize: none;
+  margin-top: 6px;
+}
+
+/* BUTTONS */
+.reg-actions {
+  margin-top: 24px;
+  display: flex;
+  justify-content: flex-start;
+}
+
+
+.btn {
+  background: #2563eb;
+  color: white;
+  border: none;
+  padding: 11px 22px;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-light {
+  background: #eef2f7;
+  border: none;
+  padding: 11px 20px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+/* ===== STEP 3 CARD ===== */
+
+.career-card {
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.career-header {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+
+.career-icon {
+  font-size: 20px;
+}
+
+.career-header h3 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.career-header p {
+  margin: 3px 0 0;
+  font-size: 13px;
+  color: #64748b;
+}
+
+/* GRID */
+.career-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.career-grid label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.label-top {
+  display: block;
+  margin-top: 4px;
+  margin-bottom: 8px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+/* DISTRICTS */
+.districts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 10px;
+}
+
+.district {
+  padding: 10px;
+  border: 1px solid #cbd5e1;
+  background: #fff;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.district.active {
+  border-color: #2563eb;
+  background: #eff6ff;
+  color: #2563eb;
+  font-weight: 600;
+}
+
+/* EXPERIENCE */
+.exp-badge {
+  margin-left: 10px;
+  background: #dbeafe;
+  color: #2563eb;
+  padding: 2px 8px;
+  border-radius: 20px;
+  font-size: 12px;
+}
+
+.exp-range {
+  width: 100%;
+}
+
+/* SALARY */
+.salary-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 4px;
+  margin-bottom: 6px;
+}
+
+.salary-input-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.salary-input {
+  width: 140px;
+  height: 36px;
+  padding: 8px 40px 8px 10px;
+  border: 1px solid #d6dbe3;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+.salary-suffix {
+  position: absolute;
+  right: 10px;
+  color: #9aa3af;
+  font-size: 13px;
+}
+
+.salary-or {
+  color: #9aa3af;
+  font-size: 14px;
+}
+
+.negotiable {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: #555;
+}
+.pass-strength {
+  height: 6px;
+  background: #e2e8f0;
+  border-radius: 20px;
+  overflow: hidden;
+  margin-top: -6px;
+}
+
+.pass-strength div {
+  height: 100%;
+  background: #2563eb;
+  transition: .3s;
+}
+.languages-row {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.lang-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  color: #475569;
+}
+.reg-card select {
+  width: 100%;
+  padding: 12px 40px 12px 14px;
+  border: 1px solid #d5dce8;
+  border-radius: 12px;
+  font-size: 15px;
+  background: #fff;
+  appearance: none;
+  cursor: pointer;
+  transition: all .2s ease;
+}
+
+/* focus effect */
+.reg-card select:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37,99,235,.12);
+  outline: none;
+}
+.reg-card select {
+  background-image: url("data:image/svg+xml;utf8,<svg fill='%2364758b' height='20' viewBox='0 0 20 20' width='20' xmlns='http://www.w3.org/2000/svg'><path d='M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.51a.75.75 0 01-1.08 0l-4.25-4.51a.75.75 0 01.02-1.06z'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+}
+input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+.icon-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.section-icon {
+  color: #2563eb;
+}
+
+.languages-row {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-top: 4px;
+}
+
+.lang-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  color: #475569;
+}
+
+.lang-item input {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+.preview-grid {
+  margin-top: 12px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.preview-img {
+  width: 90px;
+  height: 90px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+}
+.gender-select{
+width:100%;
+padding:12px;
+border-radius:8px;
+border:1px solid #ddd;
+margin-top:10px;
+font-size:14px;
+}
+.step-bar{
+display:flex;
+align-items:center;
+justify-content:center;
+gap:40px;
+margin-bottom:30px;
+}
+
+.step{
+display:flex;
+flex-direction:column;
+align-items:center;
+font-size:14px;
+color:#9ca3af;
+}
+
+.step-circle{
+width:30px;
+height:30px;
+border-radius:50%;
+border:2px solid #d1d5db;
+display:flex;
+align-items:center;
+justify-content:center;
+font-weight:600;
+margin-bottom:5px;
+}
+
+.step.active{
+color:#2563eb;
+}
+
+.step.active .step-circle{
+border-color:#2563eb;
+background:#2563eb;
+color:#fff;
+}
+
+.step-line{
+height:2px;
+width:120px;
+background:#e5e7eb;
+}
+
+.step-line.active{
+background:#2563eb;
+}
+.btn-secondary{
+background:#f1f5f9;
+border:1px solid #d1d5db;
+color:#111;
+padding:10px 18px;
+border-radius:8px;
+cursor:pointer;
+margin-right:10px;
+}
+
+.btn-secondary:hover{
+background:#e2e8f0;
+}
+.skills-grid{
+display:grid;
+grid-template-columns:repeat(auto-fill,minmax(150px,1fr));
+gap:10px;
+margin-top:10px;
+}
+
+.skill-item{
+display:flex;
+align-items:center;
+gap:8px;
+padding:8px 10px;
+border:1px solid #e2e8f0;
+border-radius:8px;
+background:#f8fafc;
+cursor:pointer;
+font-size:14px;
+transition:0.2s;
+}
+
+.skill-item:hover{
+background:#eef2ff;
+border-color:#3b82f6;
+}
+
+.skill-item input{
+accent-color:#2563eb;
+}
