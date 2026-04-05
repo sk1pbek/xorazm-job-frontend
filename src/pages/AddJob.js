@@ -74,6 +74,9 @@ update("education_levels",updated)
 
 const save=async()=>{
 
+const api = process.env.REACT_APP_API
+console.log("API URL:", api)
+
 const payload = {
   ...form,
   salary: form.negotiable ? null : Number(form.salary),
@@ -83,14 +86,26 @@ const payload = {
   lng: position?.[1] || null
 }
 
-await fetch("http://${process.env.REACT_APP_API}/jobs",{
-method:"POST",
-headers:{ "Content-Type":"application/json"},
-body:JSON.stringify(payload)
-})
+try {
+  const res = await fetch(api + "/jobs", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload)
+  })
 
-alert("Vakansiya qo‘shildi")
-navigate("/my")
+  if (!res.ok) {
+    const err = await res.json()
+    alert(err.detail || "Xatolik")
+    return
+  }
+
+  alert("Vakansiya qo'shildi")
+  navigate("/my")
+
+} catch (e) {
+  alert("Server xatosi: " + e.message)
+  console.error(e)
+}
 
 }
 
