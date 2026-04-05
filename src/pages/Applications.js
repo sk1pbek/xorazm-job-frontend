@@ -29,7 +29,7 @@ function Applications() {
     const load = async () => {
 
       const res = await fetch(
-        `http://localhost:8000/applications/${id}/${user.id}`
+        `${process.env.REACT_APP_API}/applications/${id}/${user.id}`
       );
 
       const data = await res.json();
@@ -47,7 +47,7 @@ function Applications() {
   const accept = async (appId) => {
 
     await fetch(
-      `http://localhost:8000/applications/${appId}/accept/${user.id}`,
+      `${process.env.REACT_APP_API}/applications/${appId}/accept/${user.id}`,
       { method: "PUT" }
     );
 
@@ -65,7 +65,7 @@ function Applications() {
   const reject = async (appId) => {
 
     await fetch(
-      `http://localhost:8000/applications/${appId}/reject/${user.id}`,
+      `${process.env.REACT_APP_API}/applications/${appId}/reject/${user.id}`,
       { method: "PUT" }
     );
 

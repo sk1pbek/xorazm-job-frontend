@@ -23,7 +23,7 @@ function MyApplications() {
     try {
 
       const res = await fetch(
-        `http://localhost:8000/myapplications/${user.id}`
+        `${process.env.REACT_APP_API}/myapplications/${user.id}`
       );
 
       const data = await res.json();

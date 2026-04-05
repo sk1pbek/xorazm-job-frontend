@@ -38,7 +38,7 @@ function Navbar({ user, setUser }) {
 
     try {
       const res = await fetch(
-        `http://localhost:8000/notifications/${user.id}`
+        `${process.env.REACT_APP_API}/notifications/${user.id}`
       );
 
       if (!res.ok) return;

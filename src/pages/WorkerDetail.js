@@ -39,7 +39,7 @@ const markerRef = useRef(null)
 
 useEffect(()=>{
 
-fetch(`http://localhost:8000/workers/${id}`)
+fetch(`${process.env.REACT_APP_API}/workers/${id}`)
 .then(res=>res.json())
 .then(data=>setWorker(data))
 

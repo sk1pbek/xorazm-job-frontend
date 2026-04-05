@@ -58,7 +58,7 @@ function Profile() {
 
   useEffect(() => {
     if (!u) return;
-    fetch(`http://localhost:8000/profile/${u.id}`)
+    fetch(`${process.env.REACT_APP_API}/profile/${u.id}`)
       .then(r => r.json())
       .then(data => {
         setUser(data.user);
@@ -98,7 +98,7 @@ function Profile() {
 
   const saveProfile = async () => {
     try {
-      await fetch(`http://localhost:8000/profile/update/${u.id}`, {
+      await fetch(`${process.env.REACT_APP_API}/profile/update/${u.id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -134,7 +134,7 @@ function Profile() {
       setPasswordMsg("Yangi parollar mos emas"); return;
     }
     try {
-      const res = await fetch(`http://localhost:8000/profile/change-password/${u.id}`, {
+      const res = await fetch(`${process.env.REACT_APP_API}/profile/change-password/${u.id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ old_password: oldPassword, new_password: newPassword })
@@ -150,7 +150,7 @@ function Profile() {
     setEmailMsg("");
     if (!newEmail || !emailPassword) { setEmailMsg("Barcha maydonlarni to'ldiring"); return; }
     try {
-      const res = await fetch(`http://localhost:8000/profile/change-email/${u.id}`, {
+      const res = await fetch(`${process.env.REACT_APP_API}/profile/change-email/${u.id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ new_email: newEmail, password: emailPassword })

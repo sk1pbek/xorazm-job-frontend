@@ -25,7 +25,7 @@ function MyJobs() {
 
     try {
       const res = await fetch(
-        `http://localhost:8000/myjobs/${user.id}`
+        `${process.env.REACT_APP_API}/myjobs/${user.id}`
       );
 
       const data = await res.json();
@@ -47,7 +47,7 @@ function MyJobs() {
     if (!window.confirm("Rostdan ham o‘chirasizmi?")) return;
 
     await fetch(
-      `http://localhost:8000/jobs/${id}/${user.id}`,
+      `${process.env.REACT_APP_API}/jobs/${id}/${user.id}`,
       { method: "DELETE" }
     );
 

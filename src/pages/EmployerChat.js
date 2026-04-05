@@ -17,7 +17,7 @@ function EmployerChat() {
 
   useEffect(() => {
     if (!user.id) return;
-    fetch(`http://localhost:8000/employer/jobs/${user.id}`)
+    fetch(`${process.env.REACT_APP_API}/employer/jobs/${user.id}`)
       .then(res => res.json())
       .then(data => {
         if (!Array.isArray(data)) return;
@@ -28,7 +28,7 @@ function EmployerChat() {
 
   useEffect(() => {
     if (!selectedJob) return;
-    fetch(`http://localhost:8000/chat/workers/${selectedJob.id}`)
+    fetch(`${process.env.REACT_APP_API}/chat/workers/${selectedJob.id}`)
       .then(res => res.json())
       .then(data => {
         if (Array.isArray(data)) setWorkers(data);
@@ -38,20 +38,20 @@ function EmployerChat() {
   useEffect(() => {
     if (!selectedWorker || !selectedJob || !user.id) return;
 
-    fetch(`http://localhost:8000/messages/${selectedJob.id}/${selectedWorker.worker_id}`)
+    fetch(`${process.env.REACT_APP_API}/messages/${selectedJob.id}/${selectedWorker.worker_id}`)
       .then(res => res.json())
       .then(data => {
         if (Array.isArray(data)) setMessages(data);
       });
 
-    fetch(`http://localhost:8000/messages/seen/${selectedJob.id}/${selectedWorker.worker_id}`, {
+    fetch(`${process.env.REACT_APP_API}/messages/seen/${selectedJob.id}/${selectedWorker.worker_id}`, {
       method: "PUT"
     }).then(() => {
       window.dispatchEvent(new Event("notif_update"));
     });
 
     const ws = new WebSocket(
-      `ws://localhost:8000/ws/chat/${selectedJob.id}/${selectedWorker.worker_id}/${user.id}`
+      `${process.env.REACT_APP_API.replace('https://', 'wss://')}/ws/chat/${selectedJob.id}/${selectedWorker.worker_id}/${user.id}`
     );
 
     ws.onopen = () => {

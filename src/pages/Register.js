@@ -52,7 +52,7 @@ const validate = () => {
   setLoading(true);
 
   try {
-    const res = await fetch("http://localhost:8000/register", {
+    const res = await fetch("http://${process.env.REACT_APP_API}/register", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(form)
@@ -226,7 +226,7 @@ onChange={e=>update("address", e.target.value)}
                     if(!field) return;
 
                     const res = await fetch(
-                      `http://localhost:8000/skills?field=${encodeURIComponent(field)}`
+                      `${process.env.REACT_APP_API}/skills?field=${encodeURIComponent(field)}`
                     );
 
                     const data = await res.json();

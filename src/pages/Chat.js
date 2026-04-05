@@ -15,14 +15,14 @@ function Chat({ jobId }) {
 
   if (!jobId || !user.id) return;
 
-  fetch(`http://localhost:8000/messages/${jobId}/${user.id}`)
+  fetch(`${process.env.REACT_APP_API}/messages/${jobId}/${user.id}`)
     .then(res => res.json())
     .then(data => {
       if (Array.isArray(data)) setMessages(data);
     });
 
   const ws = new WebSocket(
-    `ws://localhost:8000/ws/chat/${jobId}/${user.id}/${user.id}`
+    `${process.env.REACT_APP_API.replace('https://', 'wss://')}/ws/chat/${jobId}/${user.id}/${user.id}`
   );
 
   ws.onmessage = (event) => {

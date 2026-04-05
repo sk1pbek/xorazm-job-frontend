@@ -71,7 +71,7 @@ update("education_levels",updated)
 
 useEffect(()=>{
 
-fetch(`http://localhost:8000/jobs/${id}`)
+fetch(`${process.env.REACT_APP_API}/jobs/${id}`)
 .then(res=>res.json())
 .then(data=>{
 
@@ -99,7 +99,7 @@ const payload = {
   lng: position?.[1] || null
 }
 
-await fetch(`http://localhost:8000/jobs/${id}`,{
+await fetch(`${process.env.REACT_APP_API}/jobs/${id}`,{
 method:"PUT",
 headers:{ "Content-Type":"application/json"},
 body:JSON.stringify(payload)

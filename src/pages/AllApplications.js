@@ -15,7 +15,7 @@ function AllApplications() {
       return;
     }
 
-    fetch(`http://localhost:8000/notifications/${user.id}`)
+    fetch(`${process.env.REACT_APP_API}/notifications/${user.id}`)
       .then(res => res.json())
       .then(data => {
   if (data.applications > 0) {

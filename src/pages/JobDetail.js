@@ -76,7 +76,7 @@ useEffect(() => {
 
     try{
 
-      const res = await fetch(`http://localhost:8000/jobs/${id}`)
+      const res = await fetch(`${process.env.REACT_APP_API}/jobs/${id}`)
       const jobData = await res.json()
 
       setJob(jobData)
@@ -85,7 +85,7 @@ useEffect(() => {
 
         viewSent.current = true
 
-        fetch(`http://localhost:8000/jobs/${id}/view`,{
+        fetch(`${process.env.REACT_APP_API}/jobs/${id}/view`,{
           method:"POST"
         })
 
@@ -108,7 +108,7 @@ useEffect(()=>{
 
 if(!user?.id) return
 
-fetch(`http://localhost:8000/myapplications/${user.id}`)
+fetch(`${process.env.REACT_APP_API}/myapplications/${user.id}`)
 .then(res=>res.json())
 .then(data=>{
 
@@ -152,7 +152,7 @@ setLoadingApply(true)
 
 try{
 
-const res = await fetch("http://localhost:8000/apply",{
+const res = await fetch("http://${process.env.REACT_APP_API}/apply",{
 method:"POST",
 headers:{
 "Content-Type":"application/json"
