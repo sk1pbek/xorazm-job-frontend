@@ -65,12 +65,14 @@
 }
 
 /* ===== BUTTONS ===== */
-
+.nav-btn:hover{
+  transform: translateY(-1px);
+}
 .nav-btn{
   display:flex;
   align-items:center;
   justify-content:center;
-
+ transition: all 0.25s ease;
   height:38px;
   padding: 8px 18px;
 
@@ -87,10 +89,7 @@
   transition:all 0.2s ease;
 }
 
-/* hover */
-.nav-btn:hover{
-  background:#f1f5f9;
-}
+
 
 /* active (Vakansiyalar) */
 
@@ -104,11 +103,13 @@
 .nav-btn.solid {
   background: #2563eb;
   color: white;
-  border:none;
+  border: none;
 }
 
 .nav-btn.solid:hover {
-  background: #1d4ed8;
+  background: white;
+  color: #2563eb;
+  border: 1px solid #2563eb;
 }
 
 /* ghost */
@@ -120,9 +121,9 @@
 }
 
 .nav-btn.ghost:hover {
-  background: #eff6ff;
+  background: #2563eb;
+  color: white;
   border-color: #2563eb;
-  color: #2563eb;
 }
 
 /* ===== NOTIFICATION ===== */

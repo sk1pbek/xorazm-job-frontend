@@ -37,45 +37,43 @@ function Register() {
     setForm(prev => ({ ...prev, [key]: value }));
 
   // VALIDATION
-  const validate = () => {
+const validate = () => {
+  if (!form.name.trim())     { alert("Ism kiriting");     return false; }
+  if (!form.surname.trim())  { alert("Familiya kiriting"); return false; }
+  if (!form.phone.trim())    { alert("Telefon kiriting");  return false; }
+  if (!form.email.trim())    { alert("Email kiriting");    return false; }
+  if (!form.password.trim()) { alert("Parol kiriting");    return false; }
+  return true;
+};
 
-    if (!form.name.trim()) return alert("Ism kiriting");
-    if (!form.surname.trim()) return alert("Familiya kiriting");
-    if (!form.phone.trim()) return alert("Telefon kiriting");
-    if (!form.email.trim()) return alert("Email kiriting");
-    if (!form.password.trim()) return alert("Parol kiriting");
+ const save = async () => {
+  if (!validate()) return;
 
-    return true;
-  };
+  setLoading(true);
 
-  const save = async () => {
+  try {
+    const res = await fetch("http://localhost:8000/register", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(form)
+    });
 
-    if (!validate()) return;
-
-    setLoading(true);
-
-    try {
-
-      await fetch("http://localhost:8000/register", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form)
-      });
-
-      alert("Ro‘yxatdan o‘tildi");
-
-      navigate("/login");
-
-    } catch (err) {
-
-      alert("Serverda xatolik");
-
-    } finally {
-
-      setLoading(false);
-
+    // ✅ server xatosini tekshirish
+    if (!res.ok) {
+      const err = await res.json();
+      alert(err.detail || "Xatolik yuz berdi");
+      return;
     }
-  };
+
+    alert("Ro'yxatdan o'tildi");
+    navigate("/login");
+
+  } catch (err) {
+    alert("Serverda xatolik");
+  } finally {
+    setLoading(false);
+  }
+};
 
   // SKILL TANLASH
   const toggleSkill = (id) => {

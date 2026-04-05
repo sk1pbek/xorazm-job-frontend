@@ -13,7 +13,14 @@ import L from "leaflet";
 
 /* ===== CUSTOM MARKER ICON ===== */
 import markerIcon from "../assets/logo1.png";
+import homeIconImg from "../assets/home-button.png";
 import "./LiveMap.css";
+const homeIcon = new L.Icon({
+  iconUrl: homeIconImg,
+  iconSize: [25, 25],
+  iconAnchor: [17, 35],
+  popupAnchor: [0, -35]
+});
 const customIcon = new L.Icon({
   iconUrl: markerIcon,
   iconSize: [40, 40],
@@ -57,7 +64,7 @@ function MapController({ jobs, selectedDistrict }) {
 
     
 
-}, [selectedDistrict]);
+}, [selectedDistrict, map]);
 
   return null;
 }
@@ -86,14 +93,24 @@ function ZoomWatcher({ setZoom }) {
 
 function LiveMap({ jobs, workers, selectedDistrict }) {
 
+
+
+
+
+  
   const navigate = useNavigate();
   const [zoom, setZoom] = useState(11);
+const user = JSON.parse(localStorage.getItem("user"));
 
+const defaultCenter =
+  user?.lat && user?.lng
+    ? [Number(user.lat), Number(user.lng)]
+    : [41.55, 60.63];
   return (
     <MapContainer
      
-      center={[41.55, 60.63]}
-      zoom={11}
+      center={defaultCenter}
+      zoom={14}
       zoomControl={false}
       style={{
         height: "100%",
@@ -110,7 +127,14 @@ function LiveMap({ jobs, workers, selectedDistrict }) {
       />
 
       <ZoomWatcher setZoom={setZoom} />
-
+{user?.lat && user?.lng && (
+  <Marker
+    position={[Number(user.lat), Number(user.lng)]}
+    icon={homeIcon}
+  >
+    <Popup>🏠 Mening uyim</Popup>
+  </Marker>
+)}
     <MapController
   jobs={jobs}
   selectedDistrict={selectedDistrict}
@@ -146,7 +170,7 @@ function LiveMap({ jobs, workers, selectedDistrict }) {
   opacity={1}
   className="salary-badge"
 >
-  {job.salary} mln so‘m
+  {job.title} — {job.salary} mln so‘m
 </Tooltip>
 
             <Popup>

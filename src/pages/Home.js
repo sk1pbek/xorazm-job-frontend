@@ -29,18 +29,25 @@ const role = user?.role;
   const [workType, setWorkType] = useState("Barchasi");
 
   // ================= LOAD JOBS =================
-  useEffect(() => {
+useEffect(() => {
 
-  const url =
-    role === "employer"
-      ? "http://localhost:8000/workers"
-      : "http://localhost:8000/jobs";
+  // EMPLOYER
+  if (role === "employer") {
 
-  fetch(url)
-    .then(res => res.json())
-    .then(data => setJobs(data));
+    fetch("http://localhost:8000/workers")
+      .then(res => res.json())
+      .then(data => setJobs(data));
 
-}, [role]);
+  }
+
+ // WORKER ham, GUEST ham — barcha vakansiyalar
+else {
+    fetch("http://localhost:8000/jobs")
+      .then(res => res.json())
+      .then(data => setJobs(data));
+}
+
+}, [role, user?.lat, user?.lng]);
 // 👇 SHU YERGA
 const companies = useMemo(() => {
   const list = jobs.map(j => j.company);
@@ -99,7 +106,10 @@ return searchMatch && fieldMatch && experienceMatch && educationMatch && regionM
       workType === "Barchasi" || j.work_time === workType;
 
     const regionMatch =
-  region === "Hammasi" || j.district === region;
+  region === "Hammasi" ||
+  (j.district || "")
+    .toLowerCase()
+    .includes(region.toLowerCase());
 
     return (
       searchMatch &&

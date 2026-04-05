@@ -17,6 +17,7 @@ import RegisterEmployer from "./pages/RegisterEmployer";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Chat from "./pages/Chat";
 import WorkerDetail from "./pages/WorkerDetail";
+import Profile from "./pages/Profile";
 function App() {
 
           const [user, setUser] = useState(
@@ -28,6 +29,7 @@ function App() {
       <Navbar user={user} setUser={setUser} />
 
       <Routes>
+        <Route path="/profile" element={<Profile />} />
          <Route path="/" element={<Home />} />
         <Route path="/job/:id" element={<JobDetail />} />
         <Route path="/add" element={<AddJob />} />

@@ -1,4 +1,4 @@
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useEffect, useRef, useCallback, useState } from "react";
 import "./Navbar.css";
 import { Bell } from "lucide-react";
@@ -6,8 +6,7 @@ import logo from "../assets/logo1.png";
 
 function Navbar({ user, setUser }) {
 
-  const navigate = useNavigate();
-  const location = useLocation();
+ 
 
   const [notif, setNotif] = useState({
   total: 0,
@@ -18,27 +17,6 @@ function Navbar({ user, setUser }) {
   const [open, setOpen] = useState(false);
   const dropdownRef = useRef(null);
 
-  // ==========================
-  // SCROLL TO JOBS
-  // ==========================
-  const scrollToJobs = () => {
-
-    if (location.pathname === "/") {
-
-      const el = document.getElementById("vakansiyalar");
-      el?.scrollIntoView({ behavior: "smooth" });
-
-    } else {
-
-      navigate("/");
-
-      setTimeout(() => {
-        const el = document.getElementById("vakansiyalar");
-        el?.scrollIntoView({ behavior: "smooth" });
-      }, 300);
-
-    }
-  };
 
   // ==========================
   // LOGOUT
@@ -148,9 +126,9 @@ useEffect(() => {
       <div className="links">
 
         {/* VAKANSIYALAR */}
-        <button className="nav-btn ghost" onClick={scrollToJobs}>
+        <Link className="nav-btn ghost" to="/">
   {user?.role === "employer" ? "Nomzodlar" : "Vakansiyalar"}
-</button>
+</Link>
 
         {user?.role === "employer" && (
           <>
@@ -164,6 +142,9 @@ useEffect(() => {
               <Link className="nav-btn ghost" to="/employer-chat/1">
               Chat
              </Link>
+             <Link className="nav-btn ghost" to="/profile">
+  Profil
+</Link>
             {/* 🔔 NOTIFICATION */}
             <div className="notif-wrapper" ref={dropdownRef}>
               <button
@@ -230,6 +211,7 @@ useEffect(() => {
                 </div>
               )}
             </div>
+            
           </>
         )}
 
@@ -246,10 +228,17 @@ useEffect(() => {
         )}
 
         {user?.role === "worker" && (
-          <Link className="nav-btn ghost" to="/myapps">
-            Mening arizalarim
-          </Link>
-        )}
+  <>
+   
+
+    <Link className="nav-btn ghost" to="/myapps">
+      Mening arizalarim
+    </Link>
+     <Link className="nav-btn ghost" to="/profile">
+      Profil
+    </Link>
+  </>
+)}
 
         {user && (
           <button className="nav-btn solid" onClick={chiqish}>

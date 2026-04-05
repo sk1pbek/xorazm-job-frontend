@@ -78,7 +78,7 @@ function HomeFooter() {
       </footer>
 
       <div className="footer-bottom">
-        © 2024 Xorazm Job Ish Portali. Barcha huquqlar himoyalangan.
+        © 2026 Xorazm Job Ish Portali. Barcha huquqlar himoyalangan.
       </div>
     </>
   );

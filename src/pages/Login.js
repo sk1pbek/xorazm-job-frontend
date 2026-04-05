@@ -79,7 +79,7 @@ function Login({ setUser }) {
         </h1>
 
         <p>
-          Urganch, Xiva va butun viloyat bo‘ylab
+          Urganch, Xiva va boshqa tumanlar bo‘ylab
           minglab ish o‘rinlariga kirish imkoniyati.
         </p>
 
@@ -89,7 +89,7 @@ function Login({ setUser }) {
             <MapPin size={18} />
             <div>
               <span>Faol hudud</span>
-              <b>Xorazm viloyati, O‘zbekiston</b>
+              <b> Xorazm viloyati, O‘zbekiston</b>
             </div>
           </div>
 
@@ -127,7 +127,7 @@ function Login({ setUser }) {
             <Mail size={18} />
             <input
               type="email"
-              placeholder="example@mail.com"
+              placeholder="Email kiriting"
               value={email}
               onChange={e => setEmail(e.target.value)}
             />
