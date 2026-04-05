@@ -20,7 +20,7 @@ function Login({ setUser }) {
 
   useEffect(()=>{
 
-    fetch("http://${process.env.REACT_APP_API}/platform-stats")
+    fetch(`${process.env.REACT_APP_API}/platform-stats`)
     .then(res=>res.json())
     .then(data=>setStats(data))
 
@@ -37,7 +37,7 @@ function Login({ setUser }) {
     try {
       setLoading(true);
 
-      const res = await fetch("http://${process.env.REACT_APP_API}/login", {
+     const res = await fetch(`${process.env.REACT_APP_API}/login`,{
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password })

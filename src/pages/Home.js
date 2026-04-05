@@ -34,7 +34,7 @@ useEffect(() => {
   // EMPLOYER
   if (role === "employer") {
 
-    fetch("http://${process.env.REACT_APP_API}/workers")
+    fetch(`${process.env.REACT_APP_API}/workers`)
       .then(res => res.json())
       .then(data => setJobs(data));
 
@@ -42,7 +42,7 @@ useEffect(() => {
 
  // WORKER ham, GUEST ham — barcha vakansiyalar
 else {
-    fetch("http://${process.env.REACT_APP_API}/jobs")
+   fetch(`${process.env.REACT_APP_API}/jobs`)
       .then(res => res.json())
       .then(data => setJobs(data));
 }

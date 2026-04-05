@@ -152,7 +152,7 @@ setLoadingApply(true)
 
 try{
 
-const res = await fetch("http://${process.env.REACT_APP_API}/apply",{
+const res = await fetch(`${process.env.REACT_APP_API}/apply`,{
 method:"POST",
 headers:{
 "Content-Type":"application/json"

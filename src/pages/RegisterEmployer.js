@@ -26,7 +26,7 @@ function RegisterEmployer() {
 
     try {
 
-      await fetch("http://${process.env.REACT_APP_API}/register", {
+  await fetch(`${process.env.REACT_APP_API}/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form)
