@@ -132,7 +132,9 @@ return (
 
 <div className="worker-info-item">
 <DollarSign size={18}/>
-<span>{worker.salary} mln</span>
+<span>
+  {worker.salary ? `$ ${worker.salary} mln` : "Kelishiladi"}
+</span>
 </div>
 
 </div>

@@ -167,11 +167,7 @@ function Login({ setUser }) {
             {loading ? "Kirilmoqda..." : "Kirish"}
           </button>
 
-          <div className="divider">YOKI GOOGLE ORQALI</div>
-
-          <div className="social">
-            <button>Google</button>
-          </div>
+          
 
           <div className="signup">
             Hisobingiz yo‘qmi?{" "}
