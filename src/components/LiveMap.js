@@ -108,8 +108,8 @@ function MapController({ jobs, workers, selectedDistrict }) {
 
       // ✅ Eng yaqin ishga yaqinlashish
       if (nearestJob) {
-        map.flyTo([Number(nearestJob.lat), Number(nearestJob.lng)], 13, {
-          duration: 1.5
+        map.flyTo([Number(nearestJob.lat), Number(nearestJob.lng)], 16, {
+          duration: 6
         });
         return;
       }

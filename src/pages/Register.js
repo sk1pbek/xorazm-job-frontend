@@ -5,7 +5,9 @@ import LocationPicker from "../components/LocationPicker";
 import "../Register.css";
 
 function Register() {
-
+const [customSkills, setCustomSkills]         = useState([]);
+const [showCustomInput, setShowCustomInput]   = useState(false);
+const [customSkillName, setCustomSkillName]   = useState("");
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [skills, setSkills] = useState([]);
@@ -89,7 +91,36 @@ const validate = () => {
     }
 
   };
+const addCustomSkill = async () => {
+  
+  const name = customSkillName.trim();
+  if (!name) return;
 
+  try {
+    const res = await fetch(`${process.env.REACT_APP_API}/skills/custom`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ name, field: form.field })
+    });
+
+
+    const data = await res.json();
+
+    setCustomSkills(prev => [...prev, { id: data.skill_id, name: data.skill_name }]);
+
+    // stale closure muammosini hal qilish uchun setForm to'g'ridan ishlatamiz
+    setForm(prev => ({
+      ...prev,
+      skills: [...prev.skills, data.skill_id]
+    }));
+
+    setCustomSkillName("");
+    setShowCustomInput(false);
+
+  } catch {
+    alert("Skill qo'shishda xatolik");
+  }
+};
   return (
     <div className="reg-page">
       <div className="reg-container">
@@ -274,35 +305,93 @@ onChange={e=>update("address", e.target.value)}
             </div>
 
 
-            {/* SKILLS */}
-            {skills.length > 0 && (
+           {/* SKILLS */}
+{skills.length > 0 && (
 
-              <>
-                <label className="label-top">Ko‘nikmalar</label>
+  <>
+    <label className="label-top">Ko'nikmalar</label>
 
-                <div className="skills-grid">
+    <div className="skills-grid">
 
-                  {skills.map(s => (
+      {skills.map(s => (
 
-                    <label key={s.id} className="skill-item">
+        <label key={s.id} className="skill-item">
 
-  <input
-    type="checkbox"
-    checked={form.skills.includes(s.id)}
-    onChange={()=>toggleSkill(s.id)}
-  />
+          <input
+            type="checkbox"
+            checked={form.skills.includes(s.id)}
+            onChange={()=>toggleSkill(s.id)}
+          />
 
-  <span>{s.name}</span>
+          <span>{s.name}</span>
 
-</label>
+        </label>
 
-                  ))}
+      ))}
 
-                </div>
+      {/* CUSTOM SKILLLAR */}
+      {customSkills.map(s => (
 
-              </>
+        <label key={`custom-${s.id}`} className="skill-item skill-item--custom">
 
-            )}
+          <input
+            type="checkbox"
+            checked={form.skills.includes(s.id)}
+            onChange={()=>toggleSkill(s.id)}
+          />
+
+          <span>{s.name}</span>
+
+        </label>
+
+      ))}
+
+      {/* + TUGMA */}
+      {!showCustomInput ? (
+
+        <button
+          type="button"
+          className="skill-add-btn"
+          onClick={()=>setShowCustomInput(true)}
+        >
+          + O'zingizning ko'nikmaingizni qo'shing
+        </button>
+
+      ) : (
+
+        <div className="skill-custom-input">
+
+          <input
+            type="text"
+            placeholder="Masalan: Teri ishlash"
+            value={customSkillName}
+            onChange={e=>setCustomSkillName(e.target.value)}
+            onKeyDown={e=>{
+              if(e.key==="Enter") addCustomSkill();
+              if(e.key==="Escape") {
+                setShowCustomInput(false);
+                setCustomSkillName("");
+              }
+            }}
+            autoFocus
+          />
+
+          <button type="button" onClick={addCustomSkill}>Qo'shish</button>
+
+          <button type="button" onClick={()=>{
+            setShowCustomInput(false);
+            setCustomSkillName("");
+          }}>Bekor</button>
+
+        </div>
+
+      )}
+
+    </div>
+
+  </>
+
+)}
 
 
             {/* DISTRICT */}
