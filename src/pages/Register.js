@@ -248,7 +248,15 @@ onChange={e=>update("address", e.target.value)}
                   <option>Transport</option>
                   <option>Savdo va marketing</option>
                   <option>Axborot texnologiyalari</option>
-
+                  <option>Qurilish va ta'mirlash</option>
+                  <option>Go'zallik va sog'lomlashtirish</option>
+                  <option>Oziq-ovqat va oshpazlik</option>
+                  <option>Xavfsizlik va qo'riqchilik</option>
+                  <option>Huquq va davlat xizmati</option>
+                  <option>Uy xizmatlari</option>
+                  <option>Kadrlar va HR</option>
+                  <option>Energetika va kommunal xizmatlar</option>
+                  <option>Boshqa</option>
                 </select>
 
               </div>
