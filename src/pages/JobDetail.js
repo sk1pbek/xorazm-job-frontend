@@ -379,9 +379,9 @@ job.age_required === "Ahamiyatsiz"
 <p><b>Jins:</b> {job.gender || "Ahamiyatsiz"}</p>
 <p>
 <b>Ingliz tili:</b>{" "}
-{job.english_level === "none"
+{job.english_level === "none" || job.english_level === "Ahamiyatsiz"
 ? "Ahamiyatsiz"
-: `IELTS ${job.english_level}`}
+: job.english_level}
 </p>
 
 <p>
@@ -438,7 +438,7 @@ onChange={(e)=>setGender(e.target.value)}
 <option>Erkak</option>
 <option>Ayol</option>
 </select>
-<label>Ingliz tili darajasi (IELTS)</label>
+<label>Ingliz tili darajasi</label>
 
 <select
 value={englishLevel}
@@ -446,10 +446,13 @@ onChange={(e)=>setEnglishLevel(e.target.value)}
 >
 
 <option value="">Tanlang</option>
-<option value="4.5">IELTS 4.5</option>
-<option value="5.5">IELTS 5.5</option>
-<option value="6.5">IELTS 6.5</option>
-<option value="7.5">IELTS 7.5+</option>
+<option value="Ahamiyatsiz">Bilmayman</option>
+<option value="A1">A1</option>
+<option value="A2">A2</option>
+<option value="B1">B1</option>
+<option value="B2">B2</option>
+<option value="C1">C1</option>
+<option value="C2">C2</option>
 
 </select>
 
@@ -461,6 +464,7 @@ onChange={(e)=>setRussianLevel(e.target.value)}
 >
 
 <option value="">Tanlang</option>
+<option value="Ahamiyatsiz">Bilmayman</option>
 <option value="A1">A1</option>
 <option value="A2">A2</option>
 <option value="B1">B1</option>
