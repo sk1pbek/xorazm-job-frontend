@@ -41,7 +41,7 @@ function Profile() {
   const [newEmail, setNewEmail] = useState("");
   const [emailPassword, setEmailPassword] = useState("");
   const [emailMsg, setEmailMsg] = useState("");
-
+  const [telegramLinked, setTelegramLinked] = useState(false);
   const uRef = useRef(null);
   if (!uRef.current) {
     const stored = localStorage.getItem("user");
@@ -323,12 +323,15 @@ function Profile() {
                   ? <p>{user.english_level || "-"}</p>
                   : (
                     <select value={englishLevel} onChange={e => setEnglishLevel(e.target.value)}>
-                      <option value="">Tanlang</option>
-                      <option value="4.5">IELTS 4.5</option>
-                      <option value="5.5">IELTS 5.5</option>
-                      <option value="6.5">IELTS 6.5</option>
-                      <option value="7.5">IELTS 7.5+</option>
-                    </select>
+  <option value="">Tanlang</option>
+  <option value="Ahamiyatsiz">Bilmayman</option>
+  <option value="A1">A1</option>
+  <option value="A2">A2</option>
+  <option value="B1">B1</option>
+  <option value="B2">B2</option>
+  <option value="C1">C1</option>
+  <option value="C2">C2</option>
+</select>
                   )
                 }
               </div>
@@ -364,7 +367,39 @@ function Profile() {
             </div>
           </div>
         )}
-
+        {/* TELEGRAM */}
+<div className="profile-card">
+  <h3>📱 Telegram bildirishnomalar</h3>
+  {telegramLinked || user.telegram_chat_id ? (
+    <p style={{ color: "#22c55e", fontWeight: 600 }}>
+      ✅ Telegram ulangan — bildirishnomalar keladi
+    </p>
+  ) : (
+    <>
+      <p style={{ color: "#64748b", marginBottom: 12 }}>
+        Ariza yangiliklari va xabarlarni Telegram orqali oling
+      </p>
+      
+          <a href={`https://t.me/xorazmjob_bot?start=user_${u?.id}`}
+            target="_blank"
+            rel="noreferrer"
+            style={{
+              display: "inline-block",
+              background: "#0088cc",
+              color: "white",
+              padding: "10px 20px",
+              borderRadius: "10px",
+              textDecoration: "none",
+              fontWeight: 600,
+              fontSize: 14
+            }}
+            onClick={() => setTelegramLinked(true)}
+          >
+            Telegram ga ulash
+          </a>
+    </>
+  )}
+</div>
         {/* XAVFSIZLIK */}
         <div className="profile-card security-card">
           <h3>Xavfsizlik</h3>
