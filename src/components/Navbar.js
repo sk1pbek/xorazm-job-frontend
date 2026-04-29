@@ -239,7 +239,11 @@ useEffect(() => {
     </Link>
   </>
 )}
-
+{user?.role === "admin" && (
+          <Link className="nav-btn ghost" to="/admin">
+             Admin panel
+          </Link>
+        )}
         {user && (
           <button className="nav-btn solid" onClick={chiqish}>
             Chiqish

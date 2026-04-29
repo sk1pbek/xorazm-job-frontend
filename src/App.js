@@ -18,6 +18,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Chat from "./pages/Chat";
 import WorkerDetail from "./pages/WorkerDetail";
 import Profile from "./pages/Profile";
+import Admin from "./pages/Admin";
 function App() {
 
           const [user, setUser] = useState(
@@ -47,6 +48,7 @@ function App() {
        <Route path="/chat/:job_id/:user_id" element={<Chat />} />
         <Route path="/employer-chat/:job_id" element={<EmployerChat />} />
         <Route path="/worker/:id" element={<WorkerDetail />} />
+        <Route path="/admin" element={<Admin />} />
       </Routes>
     </BrowserRouter>
   );
