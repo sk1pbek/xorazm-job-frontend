@@ -10,10 +10,15 @@ import {
   EXPERIENCE_LEVELS,
   EDUCATION_LEVELS,
   WORK_TIMES,
-  WORKER_EDUCATION
+  WORKER_EDUCATION,
+  WORK_MODES,
+  JOB_FIELDS
 } from "../utils/filterOptions";
 
 function Home() {
+
+  const [workMode, setWorkMode] = useState("Barchasi");
+  const [field, setField] = useState("Barchasi");
 
   const [jobs, setJobs] = useState([]);
 const user = JSON.parse(localStorage.getItem("user"));
@@ -105,21 +110,30 @@ return searchMatch && fieldMatch && experienceMatch && educationMatch && regionM
     const workTypeMatch =
       workType === "Barchasi" || j.work_time === workType;
 
+    const workModeMatch =
+       workMode === "Barchasi" || j.work_mode === workMode;
+
+    const fieldMatch =
+      field === "Barchasi" || j.field === field;
+
+
     const regionMatch =
   region === "Hammasi" ||
   (j.district || "")
     .toLowerCase()
     .includes(region.toLowerCase());
 
-    return (
-      searchMatch &&
-      companyMatch &&
-      employmentMatch &&
-      experienceMatch &&
-      educationMatch &&
-      workTypeMatch &&
-      regionMatch
-    );
+   return (
+  searchMatch &&
+  companyMatch &&
+  employmentMatch &&
+  experienceMatch &&
+  educationMatch &&
+  workTypeMatch &&
+  workModeMatch &&
+  fieldMatch &&
+  regionMatch
+);
 
   });
 
@@ -141,6 +155,8 @@ return searchMatch && fieldMatch && experienceMatch && educationMatch && regionM
   experience,
   education,
   workType,
+  workMode,
+  field,
   salarySort,
   role,
   region
@@ -154,6 +170,8 @@ return searchMatch && fieldMatch && experienceMatch && educationMatch && regionM
     setExperience("Barchasi");
     setEducation("Barchasi");
     setWorkType("Barchasi");
+    setWorkMode("Barchasi");
+    setField("Barchasi");
     setSalarySort("none");
   };
 
@@ -266,6 +284,19 @@ role === "employer"
         value={workType}
         onChange={setWorkType}
         options={WORK_TIMES}
+      />
+      <FilterSelect
+        label="Ish rejimi"
+        value={workMode}
+        onChange={setWorkMode}
+        options={WORK_MODES}
+      />
+
+      <FilterSelect
+        label="Soha"
+        value={field}
+        onChange={setField}
+        options={JOB_FIELDS.slice(1)}
       />
     </>
   )}
