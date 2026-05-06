@@ -88,8 +88,8 @@ function Admin() {
       {tab === "stats" && stats && (
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: 16 }}>
           {[
-            { label: "Workerlar", value: stats.workers, color: "#3b82f6" },
-            { label: "Employerlar", value: stats.employers, color: "#8b5cf6" },
+            { label: "Ishchilar", value: stats.workers, color: "#3b82f6" },
+            { label: "Ish beruvchilar", value: stats.employers, color: "#8b5cf6" },
             { label: "Vakansiyalar", value: stats.jobs, color: "#10b981" },
             { label: "Arizalar", value: stats.applications, color: "#f59e0b" },
             { label: "Bugun yangi userlar", value: stats.today_users, color: "#ef4444" },
