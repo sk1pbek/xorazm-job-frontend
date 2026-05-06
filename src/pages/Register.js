@@ -23,8 +23,8 @@ function Register() {
     salary: "",
     negotiable: false,
     about: "",
-    english_level: "Ahamiyatsiz",
-    russian_level: "Ahamiyatsiz",
+    english_level: "none",   // "Ahamiyatsiz" o'rniga
+    russian_level: "none",   // "Ahamiyatsiz" o'rniga
     birth_year: "",
     skills: [],
     lat: null,
@@ -389,45 +389,29 @@ onChange={e=>update("address", e.target.value)}
             <div className="career-grid">
 
 <div>
-
-<label>Ingliz tili darajasi</label>
-
-<select
-value={form.english_level}
-onChange={(e)=>update("english_level", e.target.value)}
->
-
-<option>Ahamiyatsiz</option>
-<option>A1</option>
-<option>A2</option>
-<option>B1</option>
-<option>B2</option>
-<option>C1</option>
-<option>C2</option>
-
-</select>
-
+  <label>Ingliz tili darajasi</label>
+  <select value={form.english_level} onChange={(e) => update("english_level", e.target.value)}>
+    <option value="none">Bilmayman</option>
+    <option value="A1">A1</option>
+    <option value="A2">A2</option>
+    <option value="B1">B1</option>
+    <option value="B2">B2</option>
+    <option value="C1">C1</option>
+    <option value="C2">C2</option>
+  </select>
 </div>
 
 <div>
-
-<label>Rus tili darajasi</label>
-
-<select
-value={form.russian_level}
-onChange={(e)=>update("russian_level", e.target.value)}
->
-
-<option>Ahamiyatsiz</option>
-<option>A1</option>
-<option>A2</option>
-<option>B1</option>
-<option>B2</option>
-<option>C1</option>
-<option>C2</option>
-
-</select>
-
+  <label>Rus tili darajasi</label>
+  <select value={form.russian_level} onChange={(e) => update("russian_level", e.target.value)}>
+    <option value="none">Bilmayman</option>
+    <option value="A1">A1</option>
+    <option value="A2">A2</option>
+    <option value="B1">B1</option>
+    <option value="B2">B2</option>
+    <option value="C1">C1</option>
+    <option value="C2">C2</option>
+  </select>
 </div>
 
 </div>

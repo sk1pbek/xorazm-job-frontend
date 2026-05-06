@@ -9,7 +9,16 @@ export const JOB_FIELDS = [
   "Qurilish",
   "Transport",
   "Savdo va marketing",
-  "Axborot texnologiyalari"
+  "Axborot texnologiyalari",
+  "Qurilish va ta'mirlash",
+  "Go'zallik va sog'lomlashtirish",
+  "Oziq-ovqat va oshpazlik",
+  "Xavfsizlik va qo'riqchilik",
+  "Huquq va davlat xizmati",
+  "Uy xizmatlari",
+  "Kadrlar va HR",
+  "Energetika va kommunal xizmatlar",
+  "Boshqa"
 ];
 
 export const EMPLOYMENT_TYPES = [
