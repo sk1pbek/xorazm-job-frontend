@@ -19,6 +19,7 @@ import Chat from "./pages/Chat";
 import WorkerDetail from "./pages/WorkerDetail";
 import Profile from "./pages/Profile";
 import Admin from "./pages/Admin";
+import Vacancies from "./pages/Vacancies";
 function App() {
 
           const [user, setUser] = useState(
@@ -49,6 +50,7 @@ function App() {
         <Route path="/employer-chat/:job_id" element={<EmployerChat />} />
         <Route path="/worker/:id" element={<WorkerDetail />} />
         <Route path="/admin" element={<Admin />} />
+        <Route path="/vacancies" element={<Vacancies />} />
       </Routes>
     </BrowserRouter>
   );

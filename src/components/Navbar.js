@@ -126,7 +126,7 @@ useEffect(() => {
       <div className="links">
 
         {/* VAKANSIYALAR */}
-        <Link className="nav-btn ghost" to="/">
+        <Link className="nav-btn ghost" to="/vacancies">
   {user?.role === "employer" ? "Nomzodlar" : "Vakansiyalar"}
 </Link>
 

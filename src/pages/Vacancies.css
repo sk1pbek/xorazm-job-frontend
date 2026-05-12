@@ -1,0 +1,262 @@
+.vacancies-page {
+  background: #f1f4f8;
+  min-height: 100vh;
+}
+
+/* HEADER */
+.vacancies-header {
+  background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+  padding: 40px 24px 30px;
+  color: white;
+}
+
+.vacancies-header-inner {
+  max-width: 1200px;
+  margin: 0 auto 20px;
+}
+
+.vacancies-header h1 {
+  font-size: 32px;
+  font-weight: 700;
+  margin: 0 0 6px;
+}
+
+.vacancies-header p {
+  font-size: 15px;
+  opacity: 0.85;
+  margin: 0;
+}
+
+/* QIDIRUV */
+.vacancies-search-bar {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  gap: 10px;
+}
+
+.vacancies-search-bar input {
+  flex: 1;
+  padding: 12px 18px;
+  border: none;
+  border-radius: 10px;
+  font-size: 15px;
+  outline: none;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.search-btn-main {
+  padding: 12px 28px;
+  background: #f59e0b;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.search-btn-main:hover {
+  background: #d97706;
+}
+
+/* LAYOUT */
+.vacancies-layout {
+  display: flex;
+  gap: 24px;
+  max-width: 1200px;
+  margin: 28px auto;
+  padding: 0 24px;
+  align-items: flex-start;
+}
+
+/* SIDEBAR */
+.vacancies-sidebar {
+  width: 260px;
+  flex-shrink: 0;
+  background: white;
+  border-radius: 14px;
+  padding: 20px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  position: sticky;
+  top: 80px;
+}
+
+.sidebar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.sidebar-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #1e293b;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.filter-badge {
+  background: #2563eb;
+  color: white;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.reset-btn {
+  font-size: 12px;
+  color: #ef4444;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  padding: 0;
+}
+
+.reset-btn:hover {
+  text-decoration: underline;
+}
+
+/* FILTER GROUP */
+.filter-group {
+  margin-bottom: 16px;
+}
+
+.filter-label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 6px;
+}
+
+.filter-group select {
+  width: 100%;
+  padding: 9px 12px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 13px;
+  background: #f8fafc;
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.2s;
+  appearance: none;
+  background-image: url("data:image/svg+xml;utf8,<svg fill='%2364758b' height='16' viewBox='0 0 20 20' width='16' xmlns='http://www.w3.org/2000/svg'><path d='M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.51a.75.75 0 01-1.08 0l-4.25-4.51a.75.75 0 01.02-1.06z'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+}
+
+.filter-group select:focus {
+  border-color: #2563eb;
+  background-color: white;
+}
+
+/* JINS FILTER */
+.gender-filter {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.gender-btn {
+  padding: 8px 12px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  background: #f8fafc;
+  font-size: 13px;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.2s;
+  color: #475569;
+}
+
+.gender-btn:hover {
+  border-color: #2563eb;
+  color: #2563eb;
+}
+
+.gender-btn.active {
+  background: #eff6ff;
+  border-color: #2563eb;
+  color: #2563eb;
+  font-weight: 600;
+}
+
+/* CONTENT */
+.vacancies-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.vacancies-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 16px;
+}
+
+.vacancies-loading {
+  text-align: center;
+  padding: 60px;
+  color: #64748b;
+  font-size: 16px;
+}
+
+.vacancies-empty {
+  text-align: center;
+  padding: 80px 20px;
+  color: #64748b;
+}
+
+.vacancies-empty p {
+  font-size: 18px;
+  margin-bottom: 16px;
+}
+
+.reset-btn-lg {
+  padding: 10px 24px;
+  background: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 14px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .vacancies-layout {
+    flex-direction: column;
+    padding: 0 16px;
+  }
+
+  .vacancies-sidebar {
+    width: 100%;
+    position: static;
+  }
+
+  .vacancies-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .vacancies-header {
+    padding: 24px 16px 20px;
+  }
+
+  .vacancies-header h1 {
+    font-size: 24px;
+  }
+}
