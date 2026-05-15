@@ -2,13 +2,14 @@ import { useEffect, useState, useMemo } from "react";
 import JobCard from "../components/JobCard";
 import HomeFooter from "../components/HomeFooter";
 import "./Vacancies.css";
+import WorkerCard from "../components/WorkerCard";
 import {
   EMPLOYMENT_TYPES,
   EXPERIENCE_LEVELS,
-  EDUCATION_LEVELS,
   WORK_TIMES,
   WORK_MODES,
-  JOB_FIELDS
+  JOB_FIELDS,
+  WORKER_EDUCATION
 } from "../utils/filterOptions";
 
 const DISTRICTS = [
@@ -20,8 +21,10 @@ const DISTRICTS = [
 function Vacancies() {
   const [jobs, setJobs] = useState([]);
   const [loading, setLoading] = useState(true);
+  const user = JSON.parse(localStorage.getItem("user"));
+  const role = user?.role;
 
-  // FILTERLAR
+  // FILTERLAR (umumiy)
   const [search, setSearch] = useState("");
   const [region, setRegion] = useState("Hammasi");
   const [company, setCompany] = useState("Hammasi");
@@ -31,15 +34,17 @@ function Vacancies() {
   const [workType, setWorkType] = useState("Barchasi");
   const [workMode, setWorkMode] = useState("Barchasi");
   const [field, setField] = useState("Barchasi");
-  const [gender, setGender] = useState("Barchasi");
   const [salarySort, setSalarySort] = useState("none");
 
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_API}/jobs`)
+    const url = role === "employer"
+      ? `${process.env.REACT_APP_API}/workers`
+      : `${process.env.REACT_APP_API}/jobs`;
+    fetch(url)
       .then(res => res.json())
       .then(data => { setJobs(data); setLoading(false); })
       .catch(() => setLoading(false));
-  }, []);
+  }, [role]);
 
   const companies = useMemo(() => {
     const list = jobs.map(j => j.company);
@@ -48,29 +53,56 @@ function Vacancies() {
 
   const filtered = useMemo(() => {
     let result = jobs.filter(j => {
-      const searchMatch =
-        j.title?.toLowerCase().includes(search.toLowerCase()) ||
-        j.company?.toLowerCase().includes(search.toLowerCase());
+      if (role === "employer") {
+        // ---- WORKER FILTERLARI ----
+        const searchMatch =
+          (j.name || "").toLowerCase().includes(search.toLowerCase()) ||
+          (j.surname || "").toLowerCase().includes(search.toLowerCase()) ||
+          (j.field || "").toLowerCase().includes(search.toLowerCase());
 
-      const companyMatch = company === "Hammasi" || j.company === company;
-      const employmentMatch = employment === "Barchasi" || j.employment_type === employment;
-      const experienceMatch = experience === "Barchasi" || j.experience_required === experience;
-      const educationMatch = education === "Barchasi" || j.education_level === education;
-      const workTypeMatch = workType === "Barchasi" || j.work_time === workType;
-      const workModeMatch = workMode === "Barchasi" || j.work_mode === workMode;
-      const fieldMatch = field === "Barchasi" || j.field === field;
-      const regionMatch = region === "Hammasi" || (j.district || "").toLowerCase().includes(region.toLowerCase());
-      const genderMatch = gender === "Barchasi" || j.gender === gender || j.gender === "Ahamiyatsiz" || !j.gender;
+        const regionMatch =
+          region === "Hammasi" ||
+          (j.district || "").toLowerCase().includes(region.toLowerCase());
 
-      return searchMatch && companyMatch && employmentMatch && experienceMatch &&
-        educationMatch && workTypeMatch && workModeMatch && fieldMatch && regionMatch && genderMatch;
+        const fieldMatch =
+          field === "Barchasi" || j.field === field;
+
+        const experienceMatch =
+          experience === "Barchasi" ||
+          String(j.experience) === experience.replace(" yil", "").replace("+", "").trim() ||
+          (experience === "5+ yil" && Number(j.experience) >= 5) ||
+          (experience === "3+ yil" && Number(j.experience) >= 3);
+
+        const educationMatch =
+          education === "Barchasi" || j.education === education;
+
+        return searchMatch && regionMatch && fieldMatch && experienceMatch && educationMatch;
+      } else {
+        // ---- VAKANSIYA FILTERLARI ----
+        const searchMatch =
+          (j.title || "").toLowerCase().includes(search.toLowerCase()) ||
+          (j.company || "").toLowerCase().includes(search.toLowerCase());
+
+        const companyMatch = company === "Hammasi" || j.company === company;
+        const employmentMatch = employment === "Barchasi" || j.employment_type === employment;
+        const experienceMatch = experience === "Barchasi" || j.experience_required === experience;
+        const educationMatch = education === "Barchasi" || j.education_level === education;
+        const workTypeMatch = workType === "Barchasi" || j.work_time === workType;
+        const workModeMatch = workMode === "Barchasi" || j.work_mode === workMode;
+        const fieldMatch = field === "Barchasi" || j.field === field;
+        const regionMatch =
+          region === "Hammasi" ||
+          (j.district || "").toLowerCase().includes(region.toLowerCase());
+        return searchMatch && companyMatch && employmentMatch && experienceMatch &&
+          educationMatch && workTypeMatch && workModeMatch && fieldMatch && regionMatch;
+      }
     });
 
     if (salarySort === "asc") result.sort((a, b) => Number(a.salary) - Number(b.salary));
     if (salarySort === "desc") result.sort((a, b) => Number(b.salary) - Number(a.salary));
 
     return result;
-  }, [jobs, search, company, employment, experience, education, workType, workMode, field, region, gender, salarySort]);
+  }, [jobs, search, company, employment, experience, education, workType, workMode, field, region, salarySort, role]);
 
   const resetFilters = () => {
     setSearch("");
@@ -82,16 +114,20 @@ function Vacancies() {
     setWorkType("Barchasi");
     setWorkMode("Barchasi");
     setField("Barchasi");
-    setGender("Barchasi");
     setSalarySort("none");
   };
 
   const activeFiltersCount = [
-    search, region !== "Hammasi", company !== "Hammasi",
-    employment !== "Barchasi", experience !== "Barchasi",
-    education !== "Barchasi", workType !== "Barchasi",
-    workMode !== "Barchasi", field !== "Barchasi",
-    gender !== "Barchasi", salarySort !== "none"
+    search,
+    region !== "Hammasi",
+    company !== "Hammasi",
+    employment !== "Barchasi",
+    experience !== "Barchasi",
+    education !== "Barchasi",
+    workType !== "Barchasi",
+    workMode !== "Barchasi",
+    field !== "Barchasi",
+    salarySort !== "none"
   ].filter(Boolean).length;
 
   return (
@@ -100,14 +136,20 @@ function Vacancies() {
       {/* HEADER */}
       <div className="vacancies-header">
         <div className="vacancies-header-inner">
-          <h1>Vakansiyalar</h1>
-          <p>{filtered.length} ta vakansiya topildi</p>
+          <h1>{role === "employer" ? "Nomzodlar" : "Vakansiyalar"}</h1>
+          <p>
+            {filtered.length} ta {role === "employer" ? "nomzod" : "vakansiya"} topildi
+          </p>
         </div>
 
         {/* QIDIRUV */}
         <div className="vacancies-search-bar">
           <input
-            placeholder="Kasb nomi yoki kompaniya..."
+            placeholder={
+              role === "employer"
+                ? "Ism, familiya yoki soha..."
+                : "Kasb nomi yoki kompaniya..."
+            }
             value={search}
             onChange={e => setSearch(e.target.value)}
           />
@@ -151,23 +193,6 @@ function Vacancies() {
             </select>
           </div>
 
-          {/* KOMPANIYA */}
-          <div className="filter-group">
-            <label className="filter-label">Kompaniya</label>
-            <select value={company} onChange={e => setCompany(e.target.value)}>
-              {companies.map(c => <option key={c}>{c}</option>)}
-            </select>
-          </div>
-
-          {/* BANDLIK TURI */}
-          <div className="filter-group">
-            <label className="filter-label">Bandlik turi</label>
-            <select value={employment} onChange={e => setEmployment(e.target.value)}>
-              <option value="Barchasi">Barchasi</option>
-              {EMPLOYMENT_TYPES.map(t => <option key={t}>{t}</option>)}
-            </select>
-          </div>
-
           {/* TAJRIBA */}
           <div className="filter-group">
             <label className="filter-label">Tajriba</label>
@@ -182,43 +207,49 @@ function Vacancies() {
             <label className="filter-label">Ta'lim darajasi</label>
             <select value={education} onChange={e => setEducation(e.target.value)}>
               <option value="Barchasi">Barchasi</option>
-              {EDUCATION_LEVELS.map(t => <option key={t}>{t}</option>)}
+              {WORKER_EDUCATION.slice(1).map(t => <option key={t}>{t}</option>)}
             </select>
           </div>
 
-          {/* ISH VAQTI */}
-          <div className="filter-group">
-            <label className="filter-label">Ish vaqti</label>
-            <select value={workType} onChange={e => setWorkType(e.target.value)}>
-              <option value="Barchasi">Barchasi</option>
-              {WORK_TIMES.map(t => <option key={t}>{t}</option>)}
-            </select>
-          </div>
+          {/* VAKANSIYALAR UCHUN QOSHIMCHA FILTERLAR */}
+          {role !== "employer" && (
+            <>
+              {/* KOMPANIYA */}
+              <div className="filter-group">
+                <label className="filter-label">Kompaniya</label>
+                <select value={company} onChange={e => setCompany(e.target.value)}>
+                  {companies.map(c => <option key={c}>{c}</option>)}
+                </select>
+              </div>
 
-          {/* ISH REJIMI */}
-          <div className="filter-group">
-            <label className="filter-label">Ish rejimi</label>
-            <select value={workMode} onChange={e => setWorkMode(e.target.value)}>
-              <option value="Barchasi">Barchasi</option>
-              {WORK_MODES.map(t => <option key={t}>{t}</option>)}
-            </select>
-          </div>
+              {/* BANDLIK TURI */}
+              <div className="filter-group">
+                <label className="filter-label">Bandlik turi</label>
+                <select value={employment} onChange={e => setEmployment(e.target.value)}>
+                  <option value="Barchasi">Barchasi</option>
+                  {EMPLOYMENT_TYPES.map(t => <option key={t}>{t}</option>)}
+                </select>
+              </div>
 
-          {/* JINS */}
-          <div className="filter-group">
-            <label className="filter-label">Kimlar uchun</label>
-            <div className="gender-filter">
-              {["Barchasi", "Erkak", "Ayol"].map(g => (
-                <button
-                  key={g}
-                  className={`gender-btn ${gender === g ? "active" : ""}`}
-                  onClick={() => setGender(g)}
-                >
-                  {g === "Erkak" ? "👨 Erkaklar" : g === "Ayol" ? "👩 Ayollar" : "👥 Barchasi"}
-                </button>
-              ))}
-            </div>
-          </div>
+              {/* ISH VAQTI */}
+              <div className="filter-group">
+                <label className="filter-label">Ish vaqti</label>
+                <select value={workType} onChange={e => setWorkType(e.target.value)}>
+                  <option value="Barchasi">Barchasi</option>
+                  {WORK_TIMES.map(t => <option key={t}>{t}</option>)}
+                </select>
+              </div>
+
+              {/* ISH REJIMI */}
+              <div className="filter-group">
+                <label className="filter-label">Ish rejimi</label>
+                <select value={workMode} onChange={e => setWorkMode(e.target.value)}>
+                  <option value="Barchasi">Barchasi</option>
+                  {WORK_MODES.map(t => <option key={t}>{t}</option>)}
+                </select>
+              </div>
+            </>
+          )}
 
           {/* MAOSH */}
           <div className="filter-group">
@@ -232,14 +263,14 @@ function Vacancies() {
 
         </aside>
 
-        {/* O'NG — VAKANSIYALAR */}
+        {/* O'NG — KONTENT */}
         <main className="vacancies-content">
 
           {loading ? (
             <div className="vacancies-loading">Yuklanmoqda...</div>
           ) : filtered.length === 0 ? (
             <div className="vacancies-empty">
-              <p>😕 Hech qanday vakansiya topilmadi</p>
+              <p>😕 Hech narsa topilmadi</p>
               <button className="reset-btn-lg" onClick={resetFilters}>
                 Filterlarni tozalash
               </button>
@@ -247,22 +278,38 @@ function Vacancies() {
           ) : (
             <div className="vacancies-grid">
               {filtered.map(job => (
-                <JobCard
-                  key={job.id}
-                  id={job.id}
-                  title={job.title}
-                  company={job.company}
-                  salary={job.salary}
-                  location={job.location}
-                  description={job.desc}
-                  experience_required={job.experience_required}
-                  work_time={job.work_time}
-                  education_level={job.education_level}
-                  employment_type={job.employment_type}
-                  created_at={job.created_at}
-                  views_count={job.views_count}
-                  applications_count={job.applications_count}
-                />
+                role === "employer" ? (
+                  <WorkerCard
+                    key={job.id}
+                    id={job.id}
+                    name={job.name}
+                    surname={job.surname}
+                    field={job.field}
+                    salary={job.salary}
+                    district={job.district}
+                    experience={job.experience}
+                    education={job.education}
+                    about={job.about}
+                    skills={job.skills}
+                  />
+                ) : (
+                  <JobCard
+                    key={job.id}
+                    id={job.id}
+                    title={job.title}
+                    company={job.company}
+                    salary={job.salary}
+                    location={job.location}
+                    description={job.desc}
+                    experience_required={job.experience_required}
+                    work_time={job.work_time}
+                    education_level={job.education_level}
+                    employment_type={job.employment_type}
+                    created_at={job.created_at}
+                    views_count={job.views_count}
+                    applications_count={job.applications_count}
+                  />
+                )
               ))}
             </div>
           )}

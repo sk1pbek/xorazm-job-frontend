@@ -154,7 +154,7 @@ function MyJobs() {
                 to={`/edit/${job.id}`}
                 className="edit-btn"
               >
-                Edit
+                Tahrirlash
               </Link>
 
               <button

@@ -1,19 +1,24 @@
 .vacancies-page {
   background: #f1f4f8;
   min-height: 100vh;
+  padding: 0 300px;
 }
 
 /* HEADER */
 .vacancies-header {
   background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
-  padding: 40px 24px 30px;
+  padding: 20px 0 16px;
   color: white;
+  border-radius: 16px;
+  margin: 16px 20px 0;
 }
 
 .vacancies-header-inner {
   max-width: 1200px;
   margin: 0 auto 20px;
+  padding: 0 24px;
 }
+
 
 .vacancies-header h1 {
   font-size: 32px;
@@ -31,12 +36,13 @@
 .vacancies-search-bar {
   max-width: 1200px;
   margin: 0 auto;
+  padding: 0 24px;
   display: flex;
   gap: 10px;
 }
-
 .vacancies-search-bar input {
-  flex: 1;
+  width: 400px;
+  flex: none;
   padding: 12px 18px;
   border: none;
   border-radius: 10px;
@@ -65,7 +71,7 @@
 .vacancies-layout {
   display: flex;
   gap: 24px;
-  max-width: 1200px;
+  max-width: 1280px;
   margin: 28px auto;
   padding: 0 24px;
   align-items: flex-start;

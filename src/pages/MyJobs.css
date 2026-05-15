@@ -85,16 +85,16 @@ margin-top:2px;
 
 .actions{
 display:flex;
-gap:10px;
+gap:3px;
 }
 
 .view-btn{
 background:#2563eb;
 color:white;
-padding:6px 10px;
+padding:11px 10px;
 border-radius:8px;
 text-decoration:none;
-font-size:13px;
+font-size:14px;
 }
 
 .edit-btn{
