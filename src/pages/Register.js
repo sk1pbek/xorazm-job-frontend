@@ -37,11 +37,28 @@ function Register() {
 
   // VALIDATION
 const validate = () => {
-  if (!form.name.trim())     { alert("Ism kiriting");     return false; }
-  if (!form.surname.trim())  { alert("Familiya kiriting"); return false; }
-  if (!form.phone.trim())    { alert("Telefon kiriting");  return false; }
-  if (!form.email.trim())    { alert("Email kiriting");    return false; }
-  if (!form.password.trim()) { alert("Parol kiriting");    return false; }
+  if (!form.name.trim())     { alert("❗ Ism kiriting");              return false; }
+  if (!form.surname.trim())  { alert("❗ Familiya kiriting");          return false; }
+  if (!form.birth_year)      { alert("❗ Tug'ilgan yilni kiriting");   return false; }
+
+  const currentYear = new Date().getFullYear();
+  const age = currentYear - Number(form.birth_year);
+  if (age < 18) {
+    alert("❗ Ro'yxatdan o'tish uchun yoshingiz 18 dan katta bo'lishi kerak");
+    return false;
+  }
+  if (age > 80) {
+    alert("❗ Tug'ilgan yilni to'g'ri kiriting");
+    return false;
+  }
+
+  if (!form.phone.trim())    { alert("❗ Telefon raqam kiriting");     return false; }
+  if (!form.email.trim())    { alert("❗ Email kiriting");             return false; }
+  if (!form.password.trim()) { alert("❗ Parol kiriting");             return false; }
+  if (form.password.length < 6) { alert("❗ Parol kamida 6 ta belgidan iborat bo'lishi kerak"); return false; }
+  if (!form.field)           { alert("❗ Soha / Mutaxassislikni tanlang"); return false; }
+  if (!form.district)        { alert("❗ Tumaningizni tanlang");       return false; }
+
   return true;
 };
 

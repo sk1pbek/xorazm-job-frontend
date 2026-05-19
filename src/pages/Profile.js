@@ -464,8 +464,8 @@ function Profile() {
                   {jobs.map(job => (
                     <div className="job-card" key={job.id}>
                       <h4>{job.title}</h4>
-                      <p>Maosh: {job.salary}</p>
-                      <p>Ko'rishlar: {job.views}</p>
+                      <p>Maosh: {job.salary} MLN</p>
+                      <p>Ko'rishlar: {job.views} Ta</p>
                     </div>
                   ))}
                 </div>

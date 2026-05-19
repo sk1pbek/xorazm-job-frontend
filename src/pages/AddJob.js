@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Briefcase } from "lucide-react";
+import { Briefcase, Plus, Trash2 } from "lucide-react";
 import LocationPicker from "../components/LocationPicker";
 import "../Register.css";
 
@@ -42,8 +42,6 @@ function AddJob() {
     education_levels: [{ level: "Ahamiyatsiz", university: "", faculty: "" }],
     gender: "Ahamiyatsiz",
     district: "",
-
-    // ✅ FOIZLAR
     weight_age: 0,
     weight_experience: 0,
     weight_education: 0,
@@ -51,6 +49,60 @@ function AddJob() {
     weight_russian: 0,
     weight_gender: 0,
   })
+
+  // ✅ CUSTOM TALABLAR
+  const [customReqs, setCustomReqs] = useState([])
+
+  const addCustomReq = () => {
+    setCustomReqs(prev => [...prev, {
+      question: "",
+      options: ["Ha", "Yo'q"],
+      correct: "Ha",
+      weight: 0
+    }])
+  }
+
+  const removeCustomReq = (index) => {
+    setCustomReqs(prev => prev.filter((_, i) => i !== index))
+  }
+
+  const updateCustomReq = (index, key, value) => {
+    setCustomReqs(prev => {
+      const updated = [...prev]
+      updated[index] = { ...updated[index], [key]: value }
+      return updated
+    })
+  }
+
+  const addOption = (index) => {
+    setCustomReqs(prev => {
+      const updated = [...prev]
+      updated[index] = {
+        ...updated[index],
+        options: [...updated[index].options, ""]
+      }
+      return updated
+    })
+  }
+
+  const updateOption = (reqIndex, optIndex, value) => {
+    setCustomReqs(prev => {
+      const updated = [...prev]
+      const opts = [...updated[reqIndex].options]
+      opts[optIndex] = value
+      updated[reqIndex] = { ...updated[reqIndex], options: opts }
+      return updated
+    })
+  }
+
+  const removeOption = (reqIndex, optIndex) => {
+    setCustomReqs(prev => {
+      const updated = [...prev]
+      const opts = updated[reqIndex].options.filter((_, i) => i !== optIndex)
+      updated[reqIndex] = { ...updated[reqIndex], options: opts }
+      return updated
+    })
+  }
 
   const update = (k, v) => setForm(prev => ({ ...prev, [k]: v }))
 
@@ -60,27 +112,40 @@ function AddJob() {
     update("education_levels", updated)
   }
 
-  // Jami foiz hisoblash
+  // Jami foiz — standart + custom
+  const customWeight = customReqs.reduce((sum, r) => sum + (Number(r.weight) || 0), 0)
+
   const totalWeight = (
     Number(form.weight_age) +
     Number(form.weight_experience) +
     Number(form.weight_education) +
     Number(form.weight_english) +
     Number(form.weight_russian) +
-    Number(form.weight_gender)
+    Number(form.weight_gender) +
+    customWeight
   )
 
-  // Foiz input handler (0-100 oraliq)
   const updateWeight = (key, val) => {
     const num = Math.min(100, Math.max(0, Number(val) || 0))
     update(key, num)
   }
 
   const save = async () => {
-    // ✅ Foiz validatsiyasi
     if (totalWeight !== 100) {
       alert(`Foizlar jami 100% bo'lishi shart (hozir ${totalWeight}%)`)
       return
+    }
+
+    // Custom talablar validatsiyasi
+    for (let r of customReqs) {
+      if (!r.question.trim()) {
+        alert("Custom talab savolini kiriting")
+        return
+      }
+      if (r.options.length < 2) {
+        alert("Har bir custom talab uchun kamida 2 ta variant kiriting")
+        return
+      }
     }
 
     const api = process.env.REACT_APP_API
@@ -91,7 +156,13 @@ function AddJob() {
       payment_type: form.negotiable ? "Suhbatda kelishiladi" : "Aniq",
       user_id: user.id,
       lat: position?.[0] || null,
-      lng: position?.[1] || null
+      lng: position?.[1] || null,
+      custom_requirements: customReqs.map(r => ({
+        question: r.question,
+        options: r.options,
+        correct: r.correct,
+        weight: Number(r.weight)
+      }))
     }
 
     try {
@@ -116,7 +187,6 @@ function AddJob() {
     }
   }
 
-  // Foiz input + label komponenti
   const WeightInput = ({ label, weightKey }) => (
     <div style={{
       display: "flex",
@@ -282,7 +352,7 @@ function AddJob() {
                 </div>
               </div>
 
-              {/* ✅ JAMI FOIZ KO'RSATGICH */}
+              {/* JAMI FOIZ */}
               <div style={{
                 display: "flex",
                 alignItems: "center",
@@ -293,9 +363,7 @@ function AddJob() {
                 background: totalWeight === 100 ? "#e8f5e9" : totalWeight > 100 ? "#fdecea" : "#fff8e1",
                 border: `1.5px solid ${totalWeight === 100 ? "#4caf50" : totalWeight > 100 ? "#f44336" : "#ff9800"}`
               }}>
-                <span style={{ fontWeight: 600, fontSize: "15px" }}>
-                  Jami foiz:
-                </span>
+                <span style={{ fontWeight: 600, fontSize: "15px" }}>Jami foiz:</span>
                 <span style={{
                   fontWeight: 700,
                   fontSize: "18px",
@@ -379,6 +447,165 @@ function AddJob() {
                 <option>Ayol</option>
               </select>
               <WeightInput label="Muhimligi" weightKey="weight_gender" />
+
+              <hr style={{ margin: "16px 0", borderColor: "#f0f0f0" }} />
+
+              {/* ✅ CUSTOM TALABLAR */}
+              <div style={{ marginBottom: "8px" }}>
+                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "12px" }}>
+                  <label className="label-top" style={{ margin: 0 }}>Qo'shimcha talablar</label>
+                  <button
+                    type="button"
+                    onClick={addCustomReq}
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "6px",
+                      padding: "8px 14px",
+                      background: "#2563eb",
+                      color: "white",
+                      border: "none",
+                      borderRadius: "8px",
+                      cursor: "pointer",
+                      fontSize: "13px",
+                      fontWeight: 600
+                    }}
+                  >
+                    <Plus size={15} /> Talab qo'shish
+                  </button>
+                </div>
+
+                {customReqs.map((req, i) => (
+                  <div key={i} style={{
+                    border: "1.5px solid #e2e8f0",
+                    borderRadius: "12px",
+                    padding: "16px",
+                    marginBottom: "12px",
+                    background: "#f8fafc"
+                  }}>
+                    {/* Savol */}
+                    <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "10px" }}>
+                      <input
+                        placeholder="Savol kiriting (masalan: Shaxsiy avtomobili bormi?)"
+                        value={req.question}
+                        onChange={e => updateCustomReq(i, "question", e.target.value)}
+                        style={{
+                          flex: 1,
+                          padding: "8px 12px",
+                          border: "1.5px solid #ddd",
+                          borderRadius: "8px",
+                          fontSize: "14px"
+                        }}
+                      />
+                      <button
+                        type="button"
+                        onClick={() => removeCustomReq(i)}
+                        style={{
+                          background: "#fef2f2",
+                          border: "1px solid #fecaca",
+                          borderRadius: "8px",
+                          padding: "8px",
+                          cursor: "pointer",
+                          color: "#ef4444"
+                        }}
+                      >
+                        <Trash2 size={15} />
+                      </button>
+                    </div>
+
+                    {/* Variantlar */}
+                    <p style={{ fontSize: "12px", color: "#64748b", marginBottom: "6px" }}>Javob variantlari:</p>
+                    {req.options.map((opt, j) => (
+                      <div key={j} style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "6px" }}>
+                        <input
+                          placeholder={`Variant ${j + 1}`}
+                          value={opt}
+                          onChange={e => updateOption(i, j, e.target.value)}
+                          style={{
+                            flex: 1,
+                            padding: "6px 10px",
+                            border: "1.5px solid #ddd",
+                            borderRadius: "8px",
+                            fontSize: "13px"
+                          }}
+                        />
+                        {req.options.length > 2 && (
+                          <button
+                            type="button"
+                            onClick={() => removeOption(i, j)}
+                            style={{
+                              background: "transparent",
+                              border: "none",
+                              cursor: "pointer",
+                              color: "#94a3b8"
+                            }}
+                          >
+                            <Trash2 size={13} />
+                          </button>
+                        )}
+                      </div>
+                    ))}
+
+                    <button
+                      type="button"
+                      onClick={() => addOption(i)}
+                      style={{
+                        background: "transparent",
+                        border: "1px dashed #94a3b8",
+                        borderRadius: "8px",
+                        padding: "5px 12px",
+                        cursor: "pointer",
+                        fontSize: "12px",
+                        color: "#64748b",
+                        marginBottom: "10px"
+                      }}
+                    >
+                      + Variant qo'shish
+                    </button>
+
+                    {/* To'g'ri javob */}
+                    <div style={{ marginBottom: "10px" }}>
+                      <p style={{ fontSize: "12px", color: "#64748b", marginBottom: "4px" }}>To'g'ri javob:</p>
+                      <select
+                        value={req.correct}
+                        onChange={e => updateCustomReq(i, "correct", e.target.value)}
+                        style={{
+                          padding: "6px 10px",
+                          border: "1.5px solid #ddd",
+                          borderRadius: "8px",
+                          fontSize: "13px",
+                          background: "white"
+                        }}
+                      >
+                        {req.options.map((opt, j) => (
+                          <option key={j} value={opt}>{opt || `Variant ${j + 1}`}</option>
+                        ))}
+                      </select>
+                    </div>
+
+                    {/* Foiz */}
+                    <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                      <span style={{ fontSize: "13px", color: "#666" }}>Muhimligi:</span>
+                      <input
+                        type="number"
+                        min="0"
+                        max="100"
+                        value={req.weight}
+                        onChange={e => updateCustomReq(i, "weight", Math.min(100, Math.max(0, Number(e.target.value) || 0)))}
+                        style={{
+                          width: "70px",
+                          padding: "6px 10px",
+                          border: "1.5px solid #ddd",
+                          borderRadius: "8px",
+                          fontSize: "14px",
+                          textAlign: "center"
+                        }}
+                      />
+                      <span style={{ fontSize: "13px", color: "#888" }}>%</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
 
               <div className="reg-actions">
                 <button className="btn-secondary" onClick={() => setStep(1)}>← Orqaga</button>
