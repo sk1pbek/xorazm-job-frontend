@@ -35,6 +35,7 @@ function Vacancies() {
   const [workMode, setWorkMode] = useState("Barchasi");
   const [field, setField] = useState("Barchasi");
   const [salarySort, setSalarySort] = useState("none");
+  const [skillFilter, setSkillFilter] = useState("");
 
   useEffect(() => {
     const url = role === "employer"
@@ -75,8 +76,13 @@ function Vacancies() {
 
         const educationMatch =
           education === "Barchasi" || j.education === education;
+const skillMatch =
+  skillFilter === "" ||
+  (j.skills || []).some(s =>
+    s.toLowerCase().includes(skillFilter.toLowerCase())
+  );
 
-        return searchMatch && regionMatch && fieldMatch && experienceMatch && educationMatch;
+return searchMatch && regionMatch && fieldMatch && experienceMatch && educationMatch && skillMatch;
       } else {
         // ---- VAKANSIYA FILTERLARI ----
         const searchMatch =
@@ -102,7 +108,7 @@ function Vacancies() {
     if (salarySort === "desc") result.sort((a, b) => Number(b.salary) - Number(a.salary));
 
     return result;
-  }, [jobs, search, company, employment, experience, education, workType, workMode, field, region, salarySort, role]);
+}, [jobs, search, company, employment, experience, education, workType, workMode, field, region, salarySort, role, skillFilter]);
 
   const resetFilters = () => {
     setSearch("");
@@ -115,6 +121,7 @@ function Vacancies() {
     setWorkMode("Barchasi");
     setField("Barchasi");
     setSalarySort("none");
+    setSkillFilter("");
   };
 
   const activeFiltersCount = [
@@ -127,7 +134,8 @@ function Vacancies() {
     workType !== "Barchasi",
     workMode !== "Barchasi",
     field !== "Barchasi",
-    salarySort !== "none"
+    salarySort !== "none",
+    skillFilter !== ""
   ].filter(Boolean).length;
 
   return (
@@ -210,6 +218,25 @@ function Vacancies() {
               {WORKER_EDUCATION.slice(1).map(t => <option key={t}>{t}</option>)}
             </select>
           </div>
+
+         {/* KO'NIKMALAR — faqat employer uchun */}
+          {role === "employer" && (
+            <div className="filter-group">
+              <label className="filter-label">Ko'nikma</label>
+              <input
+                placeholder="Masalan: Excel"
+                value={skillFilter}
+                onChange={e => setSkillFilter(e.target.value)}
+                style={{
+                  width: "100%",
+                  padding: "8px 12px",
+                  border: "1px solid #e2e8f0",
+                  borderRadius: "8px",
+                  fontSize: "13px"
+                }}
+              />
+            </div>
+          )}
 
           {/* VAKANSIYALAR UCHUN QOSHIMCHA FILTERLAR */}
           {role !== "employer" && (

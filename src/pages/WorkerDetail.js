@@ -110,12 +110,12 @@ return (
 
 <div className="worker-info-item">
 <Languages size={18}/>
-<span>English: {worker.english_level}</span>
+<span>English: {worker.english_level === "none" ? "Bilmayman" : worker.english_level}</span>
 </div>
 
 <div className="worker-info-item">
 <Languages size={18}/>
-<span>Russian: {worker.russian_level}</span>
+<span>Russian: {worker.russian_level === "none" ? "Bilmayman" : worker.russian_level}</span>
 </div>
 
 <div className="worker-info-item">

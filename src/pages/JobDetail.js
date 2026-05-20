@@ -64,6 +64,7 @@ const [gender,setGender] = useState("")
 const viewSent = useRef(false)
 const [englishLevel,setEnglishLevel] = useState("")
 const [russianLevel,setRussianLevel] = useState("")
+const [customAnswers, setCustomAnswers] = useState({})  
 const user = JSON.parse(localStorage.getItem("user") || "null")
 const isEmployer = user?.role === "employer"
 const markerRef = useRef(null)
@@ -158,15 +159,16 @@ headers:{
 "Content-Type":"application/json"
 },
 body:JSON.stringify({
-job_id: job.id,
-user_id: user.id,
-age: age,
-experience: experience,
-education: education,
-gender: gender,
-english_level: englishLevel,
-russian_level: russianLevel,
-message:"Ariza yuborildi"
+  job_id: job.id,
+  user_id: user.id,
+  age: age,
+  experience: experience,
+  education: education,
+  gender: gender,
+  english_level: englishLevel,
+  russian_level: russianLevel,
+  message:"Ariza yuborildi",
+  custom_answers: customAnswers
 })
 })
 
@@ -472,6 +474,35 @@ onChange={(e)=>setRussianLevel(e.target.value)}
 <option value="C1">C1</option>
 
 </select>
+{console.log('custom_req:', job.custom_requirements)}
+{job.custom_requirements && job.custom_requirements.length > 0 && (
+  <>
+    <hr style={{ margin: "12px 0" }} />
+    <p style={{ fontWeight: 600, fontSize: "13px", marginBottom: "8px" }}>
+      Qo'shimcha savollar:
+    </p>
+    {job.custom_requirements.map((req, i) => (
+      <div key={i} style={{ marginBottom: "12px" }}>
+        <label style={{ fontSize: "13px", color: "#333", fontWeight: 500 }}>
+          {req.question}
+        </label>
+        <select
+          value={customAnswers[req.question] || ""}
+          onChange={e => setCustomAnswers(prev => ({
+            ...prev,
+            [req.question]: e.target.value
+          }))}
+          style={{ marginTop: "4px" }}
+        >
+          <option value="">Tanlang</option>
+          {req.options.map((opt, j) => (
+            <option key={j} value={opt}>{opt}</option>
+          ))}
+        </select>
+      </div>
+    ))}
+  </>
+)}
 <button
 className="apply-btn"
 onClick={applyJob}
