@@ -136,15 +136,15 @@ const validate = () => {
               onChange={(e)=>update("surname", e.target.value)}
             />
 
-            <input
-              type="number"
-              placeholder="Tug‘ilgan yil"
-              value={form.birth_year}
-              onChange={(e)=>{
-  const v = e.target.value
-  update("birth_year", v ? Number(v) : null)
-}}
-            />
+            <select
+  value={form.birth_year}
+  onChange={e => update("birth_year", e.target.value ? Number(e.target.value) : null)}
+>
+  <option value="">Tug'ilgan yilni tanlang</option>
+  {Array.from({ length: 60 }, (_, i) => 2006 - i).map(year => (
+    <option key={year} value={year}>{year}</option>
+  ))}
+</select>
 
             <input
               placeholder="+998 90 123 45 67"
